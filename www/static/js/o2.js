@@ -1,55 +1,35 @@
-RIA = {
-    Class : {}
+window.o2 = {
+    data    : {},
+    screens : [
+        {id:'loader',el:document.getElementById('loader')},
+        {id:'phones'},
+        {id:'phone'},
+        {id:'accessories'},
+        {id:'accessory'}
+    ],
+    feeds   : {
+        server      : 'http://www.nonleag.eu/data/',
+        phones      : 'phones-payandgo.json',
+        accessories : 'accessories.json'
+    },
+    loadPhones : function(data) {
+        o2.data.phones = data;
+    },
+    loadAccessories : function(data) {
+        o2.data.accessores = data;
+    },
+    Application : function() {
+        this.state = 0;
+        this.init = function() {
+            this.loadFeeds();
+        };
+        this.loadFeeds = function() {
+            $.loadJS(o2.feeds.server+o2.feeds.phones+'?callback=o2.loadPhones');
+            $.loadJS(o2.feeds.server+o2.feeds.accessories+'?callback=o2.loadAccessories');
+        };
+        this.init();
+    }
 };
-RIA.Class.O2app = function() {
-    this.server      = 'data/';
-    this.phones      = 'PayAndGoPhones.xml';
-    this.accessories = 'AccessoryFeed.xml';
-    this.data        = {};
-    this.init = function() {
-        var RIA = this;
-        $('div[data-role="page"]').bind('pagehide',function(event,ui) {
-            var nextPage = ui.nextPage.attr('id');
-            if (nextPage == 'phones')      RIA.loadPhones();
-            if (nextPage == 'accessories') RIA.loadAccessories();
-            if (nextPage == 'phone')       RIA.loadPhone();
-            });
-    };
-    this.loadPhones = function(callback) {
-        if (this.data.phones) return this.displayPhones();
-        var RIA = this;
-        $.get(this.server+this.phones,function(data) {
-            RIA.data.phones = data;
-            if (callback && typeof(callback) == 'function') callback();
-            else RIA.displayPhones();
-        },'xml');
-    };
-    this.loadAccessories = function() {
-        if (this.data.accessories) return this.displayAccessories();
-        var RIA = this;
-        $.get(this.server+this.accessories,function(data) {
-            RIA.data.accessories = data;
-            RIA.displayAccessories();
-        },'xml');
-    };
-    this.loadPhone = function() {
-        if (!this.data.phones) this.loadPhones(this.displayPhone);
-        else this.displayPhone();
-    };
-    this.displayPhones = function() {
-        $(this.data.phones).find('Phone').each(function() {
-            console.log($(this).find('manufacturer'),$(this).find('name'));
-        });
-    };
-    this.filterPhones = function() {
-        console.log('filter phones');
-    };
-    this.displayPhone = function() {
-        console.log('display phone');
-    };
-    this.displayAccessories = function() {
-        console.log('display accessories');
-    };
-    this.init();
-}
-RIA.O2app = new RIA.Class.O2app();
+(function() {
+    02.app = new o2.Application();
+})();

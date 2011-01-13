@@ -4,69 +4,23 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>O2 Phones</title>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css" type="text/css" media="screen">
     <link rel="stylesheet" href="static/css/o2.css" type="text/css" media="screen">
     <link rel="apple-touch-icon" href="static/img/icon.png">
 </head>
 <body>
-    <div data-role="page" id="home">
-        <header data-role="header">
-            <h1>O<sub>2</sub></h1>
-        </header>
-        <div data-role="content">
-            <ul data-role="listview">
-                <li><a href="#phones">Phones</a></li>
-                <li><a href="#accessories">Accessories</a></li>
-            </ul>
-        </div>
-    </div>
-    <div data-role="page" id="phones">
-        <header data-role="header">
-            <h1>O<sub>2</sub></h1>
-        </header>
-        <div data-role="content">
-            <form action="#">
-                <div data-role="fieldcontain">
-                    <label for="filter">Filtered by:</label>
-                    <select id="filter" name="filter">
-                        <option>All Brands</option>
-                        <option value="lg">LG</option>
-                        <option value="nokia">Nokia</option>
-                        <option value="samsung">Samsung</option>
-                        <option value="sony">Sony Ericsson</option>
-                    </select>
-                </div>
-            </form>
-            <ul class="phones" data-role="listview">
-                <li><a href="#phone" id="sa-c3050">Samsung C3050</a></li>
-                <li><a href="#phone" id="sa-c3051">Samsung C3050</a></li>
-            </ul>
-        </div>
-    </div>
-    <div data-role="page" id="phone">
-        <header data-role="header">
-            <h1>O<sub>2</sub></h1>
-        </header>
-        <div data-role="content">
-            <div class="phone"></div>
-        </div>
-    </div>
-    <div data-role="page" id="accessories">
-        <header data-role="header">
-            <h1>O<sub>2</sub></h1>
-        </header>
-        <div data-role="content">
-            <ul class="accessories" data-role="listview">
-                <li><a href="sa-ubps.html" rel="external">Samsung Universal Black Phone Sock</a></li>
-                <li><a href="sa-ubps.html" rel="external">Samsung Universal Black Phone Sock</a></li>
-            </ul>
-        </div>
-        <footer data-role="footer">
-        </footer>
-    </div>
+    <section id="loader">
+        <h1 class="header">O<sub>2</sub></h1>
+        <ul>
+            <li>Phones</li>
+            <li>Accessories</li>
+        </ul>
+        <noscript><p>This application requires javascript enabled.</p></noscript>
+    </section>
     <script src="static/js/phonegap-0.9.3.js"></script>
-    <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.js"></script>  
+    <!--
+    <script src="static/js/xui-2.0.0.js"></script>
+    -->
+    <script src="static/js/utils.js"></script>
     <script src="static/js/o2.js"></script>
 </body>
 </html>
