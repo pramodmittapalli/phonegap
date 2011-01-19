@@ -9,4 +9,7 @@ section {display:block;}
     .header sub {font-size:.5em;}
 
 ul {margin:10px 10px 0; list-style:none; padding:0;}
-    li {padding:10px; margin-bottom:10px; background:#fff; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;}
+    li {padding:10px; margin-bottom:10px; background:#999; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;}
+
+#home li {background:#999;}
+    #home li.active {background:#fff; cursor:pointer;}

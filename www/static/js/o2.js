@@ -1,35 +1,43 @@
 window.o2 = {
-    data    : {},
-    screens : [
-        {id:'loader',el:document.getElementById('loader')},
-        {id:'phones'},
-        {id:'phone'},
-        {id:'accessories'},
-        {id:'accessory'}
-    ],
-    feeds   : {
-        server      : 'http://www.nonleag.eu/data/',
-        phones      : 'phones-payandgo.json',
-        accessories : 'accessories.json'
+    data    : null,
+    screens : {
+        home        : null,
+        phones      : null,
+        phone       : null,
+        accessories : null,
+        accessory   : null
     },
-    loadPhones : function(data) {
-        o2.data.phones = data;
+    feed : 'http://pipes.yahoo.com/pipes/pipe.run?_id=77c7bc73b1da7a31958017155be5ca43&_render=json&_callback=',
+    callback : 'o2.loadData',
+    loadData : function(data) {
+        o2.data = {
+          accessories : data.value.items[0],
+          phones      : data.value.items[1]
+        }
+        o2.enableAccessories();
+        o2.enablePhones();
     },
-    loadAccessories : function(data) {
-        o2.data.accessores = data;
+    enableAccessories : function() {
+        var link = document.getElementById('l-accessories');
+        link.className = 'active';
+        link.onclick = o2.displayAccessories;
     },
-    Application : function() {
-        this.state = 0;
-        this.init = function() {
-            this.loadFeeds();
-        };
-        this.loadFeeds = function() {
-            $.loadJS(o2.feeds.server+o2.feeds.phones+'?callback=o2.loadPhones');
-            $.loadJS(o2.feeds.server+o2.feeds.accessories+'?callback=o2.loadAccessories');
-        };
-        this.init();
+    enablePhones : function() {
+        var link = document.getElementById('l-phones');
+        link.className = 'active';
+        link.onclick = o2.displayPhones;
+    },
+    displayAccessories : function() {
+      o2.displayScreen('accessories');
+    },
+    displayPhones : function() {
+      o2.displayScreen('phones');
+    },
+    displayScreen : function(screen) {
+        console.log(screen);
     }
 };
 (function() {
-    02.app = new o2.Application();
+    o2.screens.home = document.getElementById('home');
+    $.loadJS(o2.feed+o2.callback);
 })();
