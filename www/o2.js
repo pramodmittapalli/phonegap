@@ -1,7 +1,10 @@
 window.$ = {
-  loadJS : function(url,callback) {
+  loadJS : function(url,callback,properties) {
     var script = document.createElement('script');
     script.src = url,
+    for (var i=0,property; property=properties[i]; i++) {
+      script[property.name] = property.value;
+    }
     document.body.appendChild(script);
     if (callback) script.onload = callback;
   }
