@@ -1,5 +1,23 @@
 CACHE MANIFEST
 #version 1.0.0
+bridge.js
+favicon.ico
+icon.png
+index.html
+o2.css
+o2.js
+server.js
+images/ajax-loader.png
+images/form-check-off.png
+images/form-check-on.png
+images/form-radio-off.png
+images/form-radio-on.png
+images/icon-search-black.png
+images/icons-18-black.png
+images/icons-18-white.png
+images/icons-36-black.png
+images/icons-36-white.png
 
-CACHE:
-#bridge.js favicon.ico icon.png index.html o2.css o2.js server.js images/
+NETWORK:
+http://shop.o2.co.uk/
+http://pipes.yahoo.com/

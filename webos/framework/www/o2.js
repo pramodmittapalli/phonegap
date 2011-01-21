@@ -22,21 +22,33 @@ window.o2 = {
     o2.loadAccessories();
   },
   loadPayg : function() {
-      o2.paygList = $('#payg-phones ul');
-      $.each(o2.data.phones.payg,function(i,phone) {
-        $('<li><img src="'+phone.PhoneData.SmallImageURL+'"/><a href="#phone">'+phone.PhoneData.Manufacturer + ' ' + phone.PhoneData.Name+'</a></li>').appendTo(o2.paygList).click(function() {
-          $.mobile.pageLoading();
-          o2.loadPaygPhone(i);
-        });
+    o2.paygList = $('#payg-phones ul');
+    $.each(o2.data.phones.payg,function(i,phone) {
+      var rating    = Math.floor(Math.random()*5);
+      var available = (phone.StockAvailability.prePayAvailability=='In Stock' ? ' available' : '');
+      $('<li class="rating-'+rating+available+'"><img src="'+phone.PhoneData.SmallImageURL+'"/><a href="#phone">'+phone.PhoneData.Manufacturer + ' ' + phone.PhoneData.Name+'</a></li>').appendTo(o2.paygList).click(function() {
+        $.mobile.pageLoading();
+        o2.loadPaygPhone(i);
       });
-      if (o2.loadData === true && o2.paygList.listview) o2.paygList.listview('refresh');
+    });
+    if (o2.loadData === true && o2.paygList.listview) o2.paygList.listview('refresh');
+    $('#payg-phones input, #payg-phones select').change(o2.checkPhoneFilters);
+  },
+  checkPhoneFilters : function() {
+    var activeRating  = $('#rating').val();
+    var onlyAvailable = !!$('#available').attr('checked');
+    $.each(o2.paygList.children(),function(i,phone) {
+      var classVal = $(phone).attr('class');
+      var rating = /rating-(\d)/.exec(classVal)[1];
+      var available = onlyAvailable || /available/.test(classVal);
+      $(phone).css('display',(rating<activeRating || !available ? 'none' : 'block'));
+    });
   },
   loadPaygPhone : function(i) {
     var phone = o2.data.phones.payg[i];
     $('#phone h1').text(phone.PhoneData.Manufacturer+' '+phone.PhoneData.Name);
     $('#p-image').attr('src',phone.PhoneData.LargeImageURL);
     $('#p-description').text(phone.PhoneData.Conclusion);
-    $('#p-rating').html(unescape(phone.PhoneData.Feature1));
     $('#p-feature2').text(phone.PhoneData.Feature2);
     $('#p-feature3').text(phone.PhoneData.Feature3);
     var specs = [];
@@ -54,14 +66,14 @@ window.o2 = {
     $.mobile.pageLoading(true);
   },
   loadAccessories : function() {
-      o2.accessoryList = $('#accessories ul');
-      $.each(o2.data.accessories,function(i,accessory) {
-          $('<li><img src="'+accessory.AccessoryData.AccessorySmallUrl+'"/><a href="#accessory">'+accessory.AccessoryData.AccessoryName+'</a></li>').appendTo(o2.accessoryList).click(function() {
-            $.mobile.pageLoading();
-            o2.loadAccessory(i);
-          });
+    o2.accessoryList = $('#accessories ul');
+    $.each(o2.data.accessories,function(i,accessory) {
+      $('<li><img src="'+accessory.AccessoryData.AccessorySmallUrl+'"/><a href="#accessory">'+accessory.AccessoryData.AccessoryName+'</a></li>').appendTo(o2.accessoryList).click(function() {
+        $.mobile.pageLoading();
+        o2.loadAccessory(i);
       });
-      if (o2.loadData === true && o2.accessoryList.listview) o2.accessoryList.listview('refresh');
+    });
+    if (o2.loadData === true && o2.accessoryList.listview) o2.accessoryList.listview('refresh');
   },
   loadAccessory : function(i) {
     var accessory = o2.data.accessories[i];
