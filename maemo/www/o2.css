@@ -1,0 +1,4 @@
+.page {background:#0a092c; background:-webkit-gradient(linear, left top, left bottom, from(#0a092c), to(#fff)); background:-moz-linear-gradient(top, #0a092c, #fff);}
+.hidden {display:none;}
+.header {color:#fff; text-align:center; font-size:3em;}
+    .header sub {font-size:.5em;}
