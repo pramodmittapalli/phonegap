@@ -6,14 +6,15 @@
     <title>O2 Phones</title>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css" />
     <link rel="stylesheet" href="o2.css" type="text/css" media="screen"/>
-    <link rel="apple-touch-icon" href="img/logo.png" /> 
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="Icon.png" /> 
 </head>
 <body>
     <div id="splash" data-role="page" class="page">
         <div data-role="content">
             <h1 class="header">O<sub>2</sub></h1>
             <ul data-role="listview" class="hidden" data-inset="true">
-                <li><a href="#payg-phones">Pay as you go Phones</a></li>
+                <li><a href="#payg-phones">PAYG Phones</a></li>
                 <li><a href="#accessories">Accessories</a></li>
             </ul>
             <noscript><p>This application requires javascript enabled.</p></noscript>
@@ -21,27 +22,70 @@
     </div>
     <div id="payg-phones" data-role="page">
         <div data-role="header" data-theme="b">
-            <h1 class="header">O<sub>2</sub> Pay as you go Phones</h1>
+            <h1 class="header">Phones (PAYG)</h1>
         </div>
         <div data-role="content" data-theme="d">
             <ul data-role="listview" data-filter="true"></ul>
         </div>
     </div>
     <div id="phone" data-role="page" class="page">
-        <div data-role="content">
+        <div data-role="header" data-theme="b">
+            <h1 class="header">Phone (PAYG)</h1>
+        </div>
+        <div data-role="content" data-theme="d">
+          <img id="p-image"/>
+          <p id="p-description"></p>
+          <div data-role="collapsible-set">
+            <div data-role="collapsible" data-collapsed="true">
+              <h2>Info</h2>
+              <p id="p-rating"></p>
+              <p id="p-available">Availability: <span></span></p>
+              <p id="p-price">Price: £<span></span></p>
+            </div>
+            <div data-role="collapsible" data-collapsed="true">
+              <h2>Features</h2>
+              <p id="p-feature2"></p>
+              <p id="p-feature3"></p>
+              <h3>Specification</h3>
+              <div id="p-specs"></div>
+            </div>
+            <div data-role="collapsible" data-collapsed="true">
+              <h2>Tariffs</h2>
+              <div id="p-tariffs"></div>
+            </div>
+            <div data-role="collapsible" data-collapsed="true">
+              <h2>Share</h2>
+            </div>
+          </div>
         </div>
     </div>
     <div id="accessories" data-role="page">
         <div data-role="header" data-theme="b">
-            <h1 class="header">O<sub>2</sub> Accessories</h1>
+            <h1 class="header">Accessories</h1>
         </div>
         <div data-role="content" data-theme="d">
             <ul data-role="listview" data-filter="true"></ul>
         </div>
     </div>
     <div id="accessory" data-role="page" class="page" data-theme="d">
-        <div data-role="header">
-            <h1 class="header">O<sub>2</sub> Accessory</h1>
+        <div data-role="header" data-theme="b">
+            <h1 class="header">Accessory</h1>
+        </div>
+        <div data-role="content" data-theme="d">
+          <img id="a-image"/>
+          <p id="a-description"></p>
+          <div data-role="collapsible-set">
+            <div data-role="collapsible" data-collapsed="true">
+              <h2>Info</h2>
+              <p id="a-features"></p>
+              <p id="a-type">Usage: <span></span></p>
+              <p id="a-available">Availability: <span></span></p>
+              <p id="a-price">Price: £<span></span></p>
+            </div>
+            <div data-role="collapsible" data-collapsed="true">
+              <h2>Share</h2>
+            </div>
+          </div>
         </div>
     </div>
     <script src="o2.js"></script>

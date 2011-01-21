@@ -5,8 +5,10 @@ window.o2 = {
   feed     : 'http://pipes.yahoo.com/pipes/pipe.run?_id=77c7bc73b1da7a31958017155be5ca43&_render=json&_callback=o2.loadData',
   loadData : function(data) {
     o2.data = {
-      accessories : data.value.items[0],
-      payg        : data.value.items[1]
+      accessories : data.value.items[0].Accessories.Accessory,
+      phones      : {
+        payg        : data.value.items[1].Phones.Phone
+      }
     }
     $('#splash ul').removeClass('hidden');
     $.mobile.pageLoading(true);
@@ -15,17 +17,56 @@ window.o2 = {
   },
   loadPayg : function() {
       o2.paygList = $('#payg-phones ul');
-      $.each(o2.data.payg.Phones.Phone,function(i,phone) {
-          $('<li><a href="#phone">'+phone.PhoneData.Manufacturer + ' ' + phone.PhoneData.Name+'</a></li>').appendTo(o2.paygList);
+      $.each(o2.data.phones.payg,function(i,phone) {
+          $('<li><img src="'+phone.PhoneData.SmallImageURL+'"/><a href="#phone">'+phone.PhoneData.Manufacturer + ' ' + phone.PhoneData.Name+'</a></li>').appendTo(o2.paygList).click(function() {
+            $.mobile.pageLoading();
+            o2.loadPaygPhone(i);
+          });
       });
       o2.paygList.listview('refresh');
   },
+  loadPaygPhone : function(i) {
+    var phone = o2.data.phones.payg[i];
+    $('#phone h1').text(phone.PhoneData.Manufacturer+' '+phone.PhoneData.Name);
+    $('#p-image').attr('src',phone.PhoneData.LargeImageURL);
+    $('#p-description').text(phone.PhoneData.Conclusion);
+    $('#p-rating').html(unescape(phone.PhoneData.Feature1));
+    $('#p-feature2').text(phone.PhoneData.Feature2);
+    $('#p-feature3').text(phone.PhoneData.Feature3);
+    var specs = [];
+    $.each(phone.PhoneData.Specs.SpecElement,function(i,spec) {
+      specs.push('<p><span class="p-s-h">'+spec.subHead+'</span> <span class="p-s-n">'+spec.name+'</span> <span class="p-s-d">'+spec.description+'</span></p>');
+    });
+    $('#p-specs').html(specs.join(''));
+    $('#p-available span').text(phone.StockAvailability.prePayAvailability);
+    $('#p-price span').text(phone.Price.prePayPhonePrice);
+    var tariffs = [];
+    $.each(phone.Tariffs.Tariff,function(i,tariff) {
+      tariffs.push('<p><span class="p-t-n">'+tariff.TariffData.TariffName+'</span> <span class="p-t-t">'+tariff.TariffData.TariffType+'</span> <span class="p-t-p">Price: <span class="p-t-h">Handset £'+tariff.Price.handsetPrice+'</span> <span class="p-t-m">Monthly £'+tariff.Price.monthlyPrice+'</span></p>');
+    });
+    $('#p-tariffs').html(tariffs.join(''));
+    $.mobile.pageLoading(true);
+  },
   loadAccessories : function() {
       o2.accessoryList = $('#accessories ul');
-      $.each(o2.data.accessories.Accessories.Accessory,function(i,accessory) {
-          $('<li><a href="#accessory">'+accessory.AccessoryData.AccessoryName+'</a></li>').appendTo(o2.accessoryList);
+      $.each(o2.data.accessories,function(i,accessory) {
+          $('<li><img src="'+accessory.AccessoryData.AccessorySmallUrl+'"/><a href="#accessory">'+accessory.AccessoryData.AccessoryName+'</a></li>').appendTo(o2.accessoryList).click(function() {
+            $.mobile.pageLoading();
+            o2.loadAccessory(i);
+          });
       });
       o2.accessoryList.listview('refresh');
+  },
+  loadAccessory : function(i) {
+    var accessory = o2.data.accessories[i];
+    $('#accessory h1').text(accessory.AccessoryData.AccessoryName);
+    $('#a-image').attr('src',accessory.AccessoryData.AccessoryMainUrl);
+    $('#a-description').text(accessory.AccessoryData.AccessoryLongDescription);
+    $('#a-features').text(accessory.AccessoryData.AccessoryFeatures);
+    $('#a-type span').text(accessory.AccessoryData.AccessoryType);
+    $('#a-available span').text(accessory.AccessoryInStock);
+    $('#a-price span').text(accessory.Price.accessoryPrice);
+    $.mobile.pageLoading(true);
   }
 };
 $.getScript(o2.feed);
