@@ -1,9 +1,9 @@
 {
-	"id": "com.palm.phonegap",
+	"id": "com.palm.o2shop",
 	"version": "1.0.0",
-	"vendor": "Nitobi",
+	"vendor": "Razorfish",
 	"type": "web",
 	"main": "index.html",
-	"title": "PhoneGap",
+	"title": "O2 Shop",
 	"icon": "icon.png"
 }

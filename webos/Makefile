@@ -30,11 +30,11 @@ package:
 	cp framework/www/index.html framework/www/app/views/First/First-scene.html
 	palm-package framework/www/
 
-deploy:
-	palm-install com.palm.phonegap_1.0.0_all.ipk
+deploy:          
+	palm-install com.palm.o2shop_1.0.0_all.ipk
 	
 run:
-	palm-launch com.palm.phonegap
+	palm-launch com.palm.o2shop
 	
 copy_js:
 	cp lib/phonegap.js framework/www/phonegap.js
