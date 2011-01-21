@@ -1,11 +1,10 @@
-
-    package com.phonegap.Sample;
+    package com.phonegap.O2Shop;
 
     import android.app.Activity;
     import android.os.Bundle;
     import com.phonegap.*;
 
-    public class Sample extends DroidGap
+    public class O2Shop extends DroidGap
     {
         @Override
         public void onCreate(Bundle savedInstanceState)
